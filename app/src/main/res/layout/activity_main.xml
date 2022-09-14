@@ -5,5 +5,12 @@
     android:layout_height="match_parent"
     tools:context=".presentation.main.MainActivity">
 
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragment_container"
+        android:name="fr.human.it.ig2i.todoappjava.presentation.list.TaskListFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:tag="@string/task_list_tag" />
+
 
 </FrameLayout>
