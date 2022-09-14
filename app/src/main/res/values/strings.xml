@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">TodoAppJava</string>
+    <string name="task_id">Task n° %d</string>
+    <string name="task_date">Create the %s at %s</string>
+    <string name="create_task_description">Create a new task</string>
+    <string name="create_task_tag">Create a new task</string>
+    <string name="task_list_tag">Your awaiting tasks</string>
+    <string name="new_task_content_hint">Task content :</string>
+    <string name="create_button">Create</string>
+    <string name="cancel_button">Cancel</string>
+    <string name="task_creation_error_message">Unable to create the task. Please try again.</string>
+    <string name="task_content_empty_error_message">You cannot create a task without a content !</string>
+</resources>
