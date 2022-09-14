@@ -9,12 +9,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import java.util.Objects;
 
+import fr.human.it.ig2i.todoappjava.R;
 import fr.human.it.ig2i.todoappjava.databinding.FragmentTaskListBinding;
+import fr.human.it.ig2i.todoappjava.presentation.create.CreateTaskFragment;
 
 
 public class TaskListFragment extends Fragment {
@@ -47,11 +50,20 @@ public class TaskListFragment extends Fragment {
         super.onResume();
         viewModel.refreshTasks();
         viewModel.getTasks().observe(getViewLifecycleOwner(), tasks -> adapter.updateContent(tasks));
+        getBinding().createTaskFab.setOnClickListener(v -> navigateToTaskCreation());
     }
 
     @NonNull
     public FragmentTaskListBinding getBinding() {
         return Objects.requireNonNull(binding);
+    }
+
+    private void navigateToTaskCreation() {
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.fragment_container, CreateTaskFragment.class, null, getString(R.string.create_task_tag))
+                .setReorderingAllowed(true)
+                .addToBackStack(getString(R.string.create_task_tag))
+                .commit();
     }
 
 }
