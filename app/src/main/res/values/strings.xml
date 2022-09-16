@@ -3,8 +3,8 @@
     <string name="task_id">Task n° %d</string>
     <string name="task_date">Create the %s at %s</string>
     <string name="create_task_description">Create a new task</string>
-    <string name="create_task_tag">Create a new task</string>
-    <string name="task_list_tag">Your awaiting tasks</string>
+    <string name="task_creation_fragment_title">Create a new task</string>
+    <string name="task_list_fragment_title">Your awaiting tasks</string>
     <string name="new_task_content_hint">Task content :</string>
     <string name="create_button">Create</string>
     <string name="cancel_button">Cancel</string>
@@ -17,4 +17,5 @@
     <string name="inexistante_task">Unable to display this task because it does not exists.</string>
     <string name="task_successfully_finish">Task successfully marked as finish.</string>
     <string name="task_failed_finish">An error occurred when trying to mark this task as done.</string>
+    <string name="task_details_fragment_title">Task details</string>
 </resources>

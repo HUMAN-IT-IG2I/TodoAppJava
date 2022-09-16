@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import java.util.Objects;
@@ -25,10 +24,10 @@ public class CreateTaskFragment extends Fragment {
 
     @Override
     @NonNull
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentCreateTaskBinding.inflate(getLayoutInflater());
         viewModel = new ViewModelProvider(this).get(CreateTaskViewModel.class);
+        requireActivity().setTitle(getString(R.string.task_creation_fragment_title));
         return binding.getRoot();
     }
 
@@ -42,11 +41,11 @@ public class CreateTaskFragment extends Fragment {
 
     private void createTask() {
         String taskContent = Objects.requireNonNull(getBinding().taskContentEditText.getText()).toString();
-        if(taskContent.trim().isEmpty()) {
+        if (taskContent.trim().isEmpty()) {
             ToastUtils.displayToast(getContext(), R.string.task_content_empty_error_message);
             return;
         }
-        if(viewModel.addTask(taskContent)) {
+        if (viewModel.addTask(taskContent)) {
             requireActivity().onBackPressed();
         } else {
             ToastUtils.displayToast(getContext(), R.string.task_creation_error_message);

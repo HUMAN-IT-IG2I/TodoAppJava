@@ -33,8 +33,7 @@ public class TaskListFragment extends Fragment {
 
     @Override
     @NonNull
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentTaskListBinding.inflate(getLayoutInflater());
         viewModel = new ViewModelProvider(this).get(TaskListViewModel.class);
 
@@ -43,6 +42,8 @@ public class TaskListFragment extends Fragment {
         getBinding().taskList.setAdapter(adapter);
 
         fragmentManager = getParentFragmentManager();
+
+        requireActivity().setTitle(R.string.task_list_fragment_title);
 
         return getBinding().getRoot();
     }
@@ -62,20 +63,14 @@ public class TaskListFragment extends Fragment {
 
     private void navigateToTaskCreation() {
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.fragment_container, CreateTaskFragment.class, null, getString(R.string.create_task_tag))
-                .setReorderingAllowed(true)
-                .addToBackStack(getString(R.string.create_task_tag))
-                .commit();
+        transaction.replace(R.id.fragment_container, CreateTaskFragment.class, null, getString(R.string.task_creation_fragment_title)).setReorderingAllowed(true).addToBackStack(getString(R.string.task_creation_fragment_title)).commit();
     }
 
     private void navigateToDetails(Task task) {
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         Bundle bundle = new Bundle();
         bundle.putInt(getString(R.string.task_id_arg_name_for_details), task.getId());
-        transaction.replace(R.id.fragment_container, TaskDetailsFragment.class, bundle, "Task n°" + task.getId())
-                .setReorderingAllowed(true)
-                .addToBackStack("Task n° " + task.getId())
-                .commit();
+        transaction.replace(R.id.fragment_container, TaskDetailsFragment.class, bundle, getString(R.string.task_details_fragment_title)).setReorderingAllowed(true).addToBackStack(getString(R.string.task_details_fragment_title)).commit();
     }
 
 }

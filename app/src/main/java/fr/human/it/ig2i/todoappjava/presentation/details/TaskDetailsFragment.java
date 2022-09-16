@@ -27,11 +27,12 @@ public class TaskDetailsFragment extends Fragment {
 
     @Override
     @NonNull
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentTaskDetailsBinding.inflate(getLayoutInflater());
 
         viewModel = new ViewModelProvider(this).get(TaskDetailsViewModel.class);
+
+        requireActivity().setTitle(R.string.task_details_fragment_title);
 
         loadSelectedTask();
 
@@ -40,7 +41,7 @@ public class TaskDetailsFragment extends Fragment {
 
     private void loadSelectedTask() {
         Bundle bundle = getArguments();
-        if(bundle != null) {
+        if (bundle != null) {
             int taskId = bundle.getInt(getString(R.string.task_id_arg_name_for_details));
             viewModel.setCurrentTaskId(taskId);
         }
@@ -56,8 +57,8 @@ public class TaskDetailsFragment extends Fragment {
     }
 
     private void onTaskFinished(Boolean isTaskFinished) {
-        if(isTaskFinished == null) return;
-        if(isTaskFinished) {
+        if (isTaskFinished == null) return;
+        if (isTaskFinished) {
             ToastUtils.displayToast(getContext(), R.string.task_successfully_finish);
         } else {
             ToastUtils.displayToast(getContext(), R.string.task_failed_finish);
@@ -66,7 +67,7 @@ public class TaskDetailsFragment extends Fragment {
     }
 
     private void displayTask(Task task) {
-        if(task != null) {
+        if (task != null) {
             String creationDate = DateUtils.extractDateFromDateField(task.getCreationDate());
             String creationTime = DateUtils.extractTimeFromDateField(task.getCreationDate());
             getBinding().taskId.setText(getString(R.string.task_id, task.getId()));

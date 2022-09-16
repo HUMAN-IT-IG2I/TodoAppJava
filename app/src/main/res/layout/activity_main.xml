@@ -10,7 +10,7 @@
         android:name="fr.human.it.ig2i.todoappjava.presentation.list.TaskListFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:tag="@string/task_list_tag" />
+        android:tag="@string/task_list_fragment_title" />
 
 
 </FrameLayout>
