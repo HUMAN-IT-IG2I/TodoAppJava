@@ -16,9 +16,6 @@ import fr.human.it.ig2i.todoappjava.data.model.Task;
 
 public class InMemoryDataBase {
 
-    @NonNull
-    private final Calendar calendar = Calendar.getInstance();
-
     private final List<Task> tasks = new ArrayList<>(Arrays.asList(
             new Task(
                     1,
@@ -67,7 +64,7 @@ public class InMemoryDataBase {
                 new Task(
                         getLastUsedId() + 1,
                         content,
-                        calendar.getTime(),
+                        Calendar.getInstance().getTime(),
                         true
                 )
         );
