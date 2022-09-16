@@ -65,7 +65,7 @@ public class InMemoryDataBase {
     public boolean addTask(String content) {
         return tasks.add(
                 new Task(
-                        getLastUsedId(),
+                        getLastUsedId() + 1,
                         content,
                         calendar.getTime(),
                         true
