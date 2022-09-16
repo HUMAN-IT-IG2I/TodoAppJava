@@ -16,11 +16,18 @@ import java.util.Locale;
 import fr.human.it.ig2i.todoappjava.R;
 import fr.human.it.ig2i.todoappjava.data.model.Task;
 import fr.human.it.ig2i.todoappjava.databinding.TaskItemBinding;
+import fr.human.it.ig2i.todoappjava.utils.DateUtils;
 
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder> {
 
     private final List<Task> tasks = new ArrayList<>();
+
+    private final OnTaskClickedListener onClickListener;
+
+    public TaskAdapter(@NonNull OnTaskClickedListener onClickListener) {
+        this.onClickListener = onClickListener;
+    }
 
     public void updateContent(List<Task> newTasks) {
         final TasksDiffUtil diffCallback = new TasksDiffUtil(tasks, newTasks);
@@ -41,6 +48,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
     public void onBindViewHolder(final TaskViewHolder holder, int position) {
         Task task = tasks.get(position);
         holder.bind(task);
+        holder.itemView.setOnClickListener(v -> onClickListener.onTaskClicked(task));
     }
 
     @Override
@@ -51,23 +59,18 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
     public static class TaskViewHolder extends RecyclerView.ViewHolder {
         @NonNull
         private final TaskItemBinding binding;
-        @NonNull
-        private final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE);
-        @NonNull
-        private final SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.FRANCE);
-
 
         public TaskViewHolder(@NonNull TaskItemBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }
 
-        public void bind(Task task) {
+        public void bind(@NonNull Task task) {
             Context context = binding.getRoot().getContext();
             binding.taskId.setText(context.getString(R.string.task_id, task.getId()));
             binding.taskContent.setText(task.getContent());
-            String creationDate = dateFormat.format(task.getCreationDate());
-            String creationTime = timeFormat.format(task.getCreationDate());
+            String creationDate = DateUtils.extractDateFromDateField(task.getCreationDate());
+            String creationTime = DateUtils.extractTimeFromDateField(task.getCreationDate());
             binding.taskDate.setText(context.getString(R.string.task_date, creationDate, creationTime));
         }
 
@@ -102,5 +105,9 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
             return oldTasks.get(oldItemPosition).equals(newTasks.get(newItemPosition));
         }
+    }
+
+    public interface OnTaskClickedListener {
+        void onTaskClicked(Task task);
     }
 }

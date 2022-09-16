@@ -10,4 +10,11 @@
     <string name="cancel_button">Cancel</string>
     <string name="task_creation_error_message">Unable to create the task. Please try again.</string>
     <string name="task_content_empty_error_message">You cannot create a task without a content !</string>
+    <string name="task_id_arg_name_for_details">task_id_for_details</string>
+    <string name="content_details">Content :</string>
+    <string name="back_button">Back</string>
+    <string name="finish_button">Mark as done</string>
+    <string name="inexistante_task">Unable to display this task because it does not exists.</string>
+    <string name="task_successfully_finish">Task successfully marked as finish.</string>
+    <string name="task_failed_finish">An error occurred when trying to mark this task as done.</string>
 </resources>

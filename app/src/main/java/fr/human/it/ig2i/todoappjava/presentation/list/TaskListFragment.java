@@ -16,8 +16,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import java.util.Objects;
 
 import fr.human.it.ig2i.todoappjava.R;
+import fr.human.it.ig2i.todoappjava.data.model.Task;
 import fr.human.it.ig2i.todoappjava.databinding.FragmentTaskListBinding;
 import fr.human.it.ig2i.todoappjava.presentation.create.CreateTaskFragment;
+import fr.human.it.ig2i.todoappjava.presentation.details.TaskDetailsFragment;
 
 
 public class TaskListFragment extends Fragment {
@@ -37,7 +39,7 @@ public class TaskListFragment extends Fragment {
         viewModel = new ViewModelProvider(this).get(TaskListViewModel.class);
 
         getBinding().taskList.setLayoutManager(new LinearLayoutManager(getBinding().taskList.getContext()));
-        adapter = new TaskAdapter();
+        adapter = new TaskAdapter(this::navigateToDetails);
         getBinding().taskList.setAdapter(adapter);
 
         fragmentManager = getParentFragmentManager();
@@ -63,6 +65,16 @@ public class TaskListFragment extends Fragment {
         transaction.replace(R.id.fragment_container, CreateTaskFragment.class, null, getString(R.string.create_task_tag))
                 .setReorderingAllowed(true)
                 .addToBackStack(getString(R.string.create_task_tag))
+                .commit();
+    }
+
+    private void navigateToDetails(Task task) {
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        Bundle bundle = new Bundle();
+        bundle.putInt(getString(R.string.task_id_arg_name_for_details), task.getId());
+        transaction.replace(R.id.fragment_container, TaskDetailsFragment.class, bundle, "Task n°" + task.getId())
+                .setReorderingAllowed(true)
+                .addToBackStack("Task n° " + task.getId())
                 .commit();
     }
 

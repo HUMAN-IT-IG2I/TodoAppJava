@@ -1,11 +1,15 @@
 package fr.human.it.ig2i.todoappjava.data;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import fr.human.it.ig2i.todoappjava.data.model.Task;
@@ -46,6 +50,10 @@ public class InMemoryDataBase {
         return tasks.stream().filter(Task::isActive).collect(Collectors.toList());
     }
 
+    public Optional<Task> getTaskById(int id) {
+        return tasks.stream().filter(task -> task.getId() == id && task.isActive()).findFirst();
+    }
+
     private int getLastUsedId() {
         List<Integer> usedIds = tasks.stream().map(Task::getId).sorted().collect(Collectors.toList());
         if (usedIds.isEmpty()) {
@@ -63,6 +71,15 @@ public class InMemoryDataBase {
                         true
                 )
         );
+    }
+
+    public boolean finishTask(Task task) {
+        Optional<Task> researchResult = getTaskById(task.getId());
+        if(researchResult.isPresent()) {
+            researchResult.get().finishTask();
+            return true;
+        }
+        return false;
     }
 
 }
