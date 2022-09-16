@@ -20,35 +20,39 @@ public class CreateTaskFragment extends Fragment {
 
     @Nullable
     private FragmentCreateTaskBinding binding = null;
+
     private CreateTaskViewModel viewModel;
 
     @Override
     @NonNull
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentCreateTaskBinding.inflate(getLayoutInflater());
+
         viewModel = new ViewModelProvider(this).get(CreateTaskViewModel.class);
+
         requireActivity().setTitle(getString(R.string.task_creation_fragment_title));
+
         return binding.getRoot();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        getBinding().cancelButton.setOnClickListener(v -> requireActivity().onBackPressed());
 
+        getBinding().cancelButton.setOnClickListener(v -> requireActivity().onBackPressed());
         getBinding().createButton.setOnClickListener(v -> createTask());
     }
 
     private void createTask() {
         String taskContent = Objects.requireNonNull(getBinding().taskContentEditText.getText()).toString();
         if (taskContent.trim().isEmpty()) {
-            ToastUtils.displayToast(getContext(), R.string.task_content_empty_error_message);
+            ToastUtils.displayToast(requireContext(), R.string.task_content_empty_error_message);
             return;
         }
         if (viewModel.addTask(taskContent)) {
             requireActivity().onBackPressed();
         } else {
-            ToastUtils.displayToast(getContext(), R.string.task_creation_error_message);
+            ToastUtils.displayToast(requireContext(), R.string.task_creation_error_message);
         }
     }
 
@@ -56,6 +60,5 @@ public class CreateTaskFragment extends Fragment {
     public FragmentCreateTaskBinding getBinding() {
         return Objects.requireNonNull(binding);
     }
-
 
 }

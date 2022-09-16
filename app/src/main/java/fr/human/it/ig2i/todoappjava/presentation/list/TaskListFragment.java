@@ -26,7 +26,9 @@ public class TaskListFragment extends Fragment {
 
     @Nullable
     private FragmentTaskListBinding binding = null;
+
     private TaskListViewModel viewModel;
+
     private TaskAdapter adapter;
 
     private FragmentManager fragmentManager;
@@ -66,7 +68,7 @@ public class TaskListFragment extends Fragment {
         transaction.replace(R.id.fragment_container, CreateTaskFragment.class, null, getString(R.string.task_creation_fragment_title)).setReorderingAllowed(true).addToBackStack(getString(R.string.task_creation_fragment_title)).commit();
     }
 
-    private void navigateToDetails(Task task) {
+    private void navigateToDetails(@NonNull Task task) {
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         Bundle bundle = new Bundle();
         bundle.putInt(getString(R.string.task_id_arg_name_for_details), task.getId());

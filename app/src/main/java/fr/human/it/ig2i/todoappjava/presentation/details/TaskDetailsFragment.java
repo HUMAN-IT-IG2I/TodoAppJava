@@ -50,8 +50,10 @@ public class TaskDetailsFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+
         viewModel.getCurrentTask().observe(getViewLifecycleOwner(), this::displayTask);
         viewModel.isTaskFinished().observe(getViewLifecycleOwner(), this::onTaskFinished);
+
         getBinding().backButton.setOnClickListener(v -> requireActivity().onBackPressed());
         getBinding().finishButton.setOnClickListener(v -> viewModel.markTaskAsDone());
     }
@@ -59,9 +61,9 @@ public class TaskDetailsFragment extends Fragment {
     private void onTaskFinished(Boolean isTaskFinished) {
         if (isTaskFinished == null) return;
         if (isTaskFinished) {
-            ToastUtils.displayToast(getContext(), R.string.task_successfully_finish);
+            ToastUtils.displayToast(requireContext(), R.string.task_successfully_finish);
         } else {
-            ToastUtils.displayToast(getContext(), R.string.task_failed_finish);
+            ToastUtils.displayToast(requireContext(), R.string.task_failed_finish);
         }
         requireActivity().onBackPressed();
     }

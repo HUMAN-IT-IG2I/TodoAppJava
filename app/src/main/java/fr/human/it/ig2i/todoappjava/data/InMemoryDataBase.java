@@ -1,9 +1,6 @@
 package fr.human.it.ig2i.todoappjava.data;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,32 +13,8 @@ import fr.human.it.ig2i.todoappjava.data.model.Task;
 
 public class InMemoryDataBase {
 
-    private final List<Task> tasks = new ArrayList<>(Arrays.asList(
-            new Task(
-                    1,
-                    "Benchmark Android native development solutions",
-                    Calendar.getInstance().getTime(),
-                    false
-            ),
-            new Task(
-                    2,
-                    "Realize a TodoApp in Java",
-                    Calendar.getInstance().getTime(),
-                    true
-            ),
-            new Task(
-                    3,
-                    "Realize a TodoApp in Kotlin",
-                    Calendar.getInstance().getTime(),
-                    true
-            ),
-            new Task(
-                    4,
-                    "Find out which solution is the best",
-                    Calendar.getInstance().getTime(),
-                    true
-            )
-    ));
+    @NonNull
+    private final List<Task> tasks = new ArrayList<>(Arrays.asList(new Task(1, "Benchmark Android native development solutions", Calendar.getInstance().getTime(), false), new Task(2, "Realize a TodoApp in Java", Calendar.getInstance().getTime(), true), new Task(3, "Realize a TodoApp in Kotlin", Calendar.getInstance().getTime(), true), new Task(4, "Find out which solution is the best", Calendar.getInstance().getTime(), true)));
 
     public List<Task> getTasks() {
         return tasks.stream().filter(Task::isActive).collect(Collectors.toList());
@@ -60,19 +33,12 @@ public class InMemoryDataBase {
     }
 
     public boolean addTask(String content) {
-        return tasks.add(
-                new Task(
-                        getLastUsedId() + 1,
-                        content,
-                        Calendar.getInstance().getTime(),
-                        true
-                )
-        );
+        return tasks.add(new Task(getLastUsedId() + 1, content, Calendar.getInstance().getTime(), true));
     }
 
     public boolean finishTask(Task task) {
         Optional<Task> researchResult = getTaskById(task.getId());
-        if(researchResult.isPresent()) {
+        if (researchResult.isPresent()) {
             researchResult.get().finishTask();
             return true;
         }

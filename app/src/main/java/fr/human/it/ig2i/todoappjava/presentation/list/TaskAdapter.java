@@ -8,10 +8,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import fr.human.it.ig2i.todoappjava.R;
 import fr.human.it.ig2i.todoappjava.data.model.Task;
@@ -21,8 +19,10 @@ import fr.human.it.ig2i.todoappjava.utils.DateUtils;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder> {
 
+    @NonNull
     private final List<Task> tasks = new ArrayList<>();
 
+    @NonNull
     private final OnTaskClickedListener onClickListener;
 
     public TaskAdapter(@NonNull OnTaskClickedListener onClickListener) {
@@ -46,7 +46,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
 
     @Override
     public void onBindViewHolder(final TaskViewHolder holder, int position) {
-        Task task = tasks.get(position);
+        final Task task = tasks.get(position);
         holder.bind(task);
         holder.itemView.setOnClickListener(v -> onClickListener.onTaskClicked(task));
     }
@@ -57,6 +57,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
     }
 
     public static class TaskViewHolder extends RecyclerView.ViewHolder {
+
         @NonNull
         private final TaskItemBinding binding;
 
@@ -78,10 +79,12 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
 
     private static class TasksDiffUtil extends DiffUtil.Callback {
 
+        @NonNull
         private final List<Task> oldTasks;
+        @NonNull
         private final List<Task> newTasks;
 
-        public TasksDiffUtil(List<Task> oldTasks, List<Task> newTasks) {
+        public TasksDiffUtil(@NonNull List<Task> oldTasks, @NonNull List<Task> newTasks) {
             this.oldTasks = oldTasks;
             this.newTasks = newTasks;
         }
@@ -108,6 +111,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
     }
 
     public interface OnTaskClickedListener {
-        void onTaskClicked(Task task);
+        void onTaskClicked(@NonNull Task task);
     }
 }

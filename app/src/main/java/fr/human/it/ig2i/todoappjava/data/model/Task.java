@@ -6,11 +6,11 @@ import java.util.Date;
 import java.util.Objects;
 
 public class Task {
-    private int id;
+    private final int id;
     @NonNull
-    private String content;
+    private final String content;
     @NonNull
-    private Date creationDate;
+    private final Date creationDate;
     @NonNull
     private Boolean isActive;
 

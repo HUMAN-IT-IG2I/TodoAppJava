@@ -42,6 +42,7 @@ public class TaskDetailsViewModel extends ViewModel {
         this.isTaskFinished.postValue(isTaskFinished);
     }
 
+    @NonNull
     public LiveData<Boolean> isTaskFinished() {
         return isTaskFinished;
     }
